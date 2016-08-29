@@ -11,10 +11,17 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 
 
+import com.feicui.edu.gitdriod.commons.ActivityUtils;
 import com.feicui.edu.gitdriod.github.HotRepoFragment;
 import com.feicui.edu.gitdriod.github.HotUserFragment;
+import com.feicui.edu.gitdriod.login.LoginActivity;
+import com.feicui.edu.gitdriod.login.UserRepo;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,7 +35,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     // 热门仓库Fragment
     private HotRepoFragment hotRepoFragment;
     private HotUserFragment hotUserFragment;
-
+    private Button btnLogin;
+    private ImageView ivIcon;
+    private ActivityUtils activityUtils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +49,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override public void onContentChanged() {
         super.onContentChanged();
+
         ButterKnife.bind(this);
+        activityUtils = new ActivityUtils(this);
         // ActionBar处理
         setSupportActionBar(toolbar);
         // 设置navigationView的监听器
@@ -51,12 +62,37 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // 设置抽屉监听
         drawerLayout.addDrawerListener(toggle);
 
+        //得到NavigationView里面的头布局的控件
+        btnLogin = ButterKnife.findById(navigationView.getHeaderView(0), R.id.btnLogin);
+        ivIcon = ButterKnife.findById(navigationView.getHeaderView(0), R.id.ivIcon);
+
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activityUtils.startActivity(LoginActivity.class);
+                finish();
+            }
+        });
+
         // 默认显示的是热门仓库fragment
         hotRepoFragment = new HotRepoFragment();
         replaceFragment(hotRepoFragment);
     }
 
-
+    //主要做了我们基本登录信息的改变
+    @Override protected void onStart() {
+        super.onStart();
+        if (UserRepo.isEmpty()){
+            btnLogin.setText(R.string.login_github);
+            return;
+        }
+        btnLogin.setText(R.string.switch_account);
+        //设置Main页面的标题
+        getSupportActionBar().setTitle(UserRepo.getUser().getName());
+        //设置我们的用户头像
+//        Picasso.with(this).load(UserRepo.getUser().getAvatar()).into(ivIcon);
+        ImageLoader.getInstance().displayImage(UserRepo.getUser().getAvatar(),ivIcon);
+    }
     private void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();

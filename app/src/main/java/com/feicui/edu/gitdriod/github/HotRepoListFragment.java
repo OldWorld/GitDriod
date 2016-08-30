@@ -6,12 +6,18 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.feicui.edu.gitdriod.R;
+import com.feicui.edu.gitdriod.commons.ActivityUtils;
 import com.feicui.edu.gitdriod.components.FooterView;
+import com.feicui.edu.gitdriod.github.model.Repo;
+import com.feicui.edu.gitdriod.github.repoinfo.RepoInfoActivity;
+import com.feicui.edu.gitdriod.github.view.Language;
+import com.feicui.edu.gitdriod.github.view.RepoListAdapter;
 import com.mugen.Mugen;
 import com.mugen.MugenCallbacks;
 
@@ -26,7 +32,9 @@ import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.header.StoreHouseHeader;
 
 
-
+/**
+ * A simple {@link Fragment} subclass.
+ */
 public class HotRepoListFragment extends Fragment implements RepoListView {
 
 
@@ -36,31 +44,50 @@ public class HotRepoListFragment extends Fragment implements RepoListView {
     @BindView(R.id.errorView) TextView errorView;
 
     private List<String> data;
-
+    private ActivityUtils activityUtils;
     private RepoListPresenter presenter;
-    private ArrayAdapter<String> adapter;
+    private RepoListAdapter adapter;
     private FooterView footerView;
+
+    private static final String KEY_LANGUAGE="key_language";
+
+    public static HotRepoListFragment getInstance(Language language){
+        HotRepoListFragment fragment = new HotRepoListFragment();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(KEY_LANGUAGE, language);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
+    private Language getLanguage(){
+        return (Language) getArguments().getSerializable(KEY_LANGUAGE);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_repo_list, container, false);
+        activityUtils = new ActivityUtils(this);
         ButterKnife.bind(this, view);
         return view;
     }
 
     @Override public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        presenter = new RepoListPresenter(this);
+        presenter = new RepoListPresenter(this,getLanguage());
 
-        //初始添加数据
-        data = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            data.add("测试数据"+i);
-        }
-        adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1,data);
+        adapter = new RepoListAdapter();
         lvRepos.setAdapter(adapter);
+
+        lvRepos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //点击某一条跳转到详情页
+                Repo repo = (Repo) adapter.getItem(position);
+                RepoInfoActivity.open(getContext(), repo);
+            }
+        });
 
         if (adapter.getCount()==0){
             ptrFrameLayout.postDelayed(new Runnable() {
@@ -140,9 +167,8 @@ public class HotRepoListFragment extends Fragment implements RepoListView {
      * 4.刷新的数据为空，空页面
      * 5.拿到刷新得到数据
      */
-    @Override public void refreshData(List<String> list) {
-        data.clear();
-        data.addAll(list);
+    @Override public void refreshData(List<Repo> list) {
+        adapter.addAll(list);
         adapter.notifyDataSetChanged();
     }
 
@@ -166,6 +192,10 @@ public class HotRepoListFragment extends Fragment implements RepoListView {
         ptrFrameLayout.setVisibility(View.GONE);
         emptyView.setVisibility(View.GONE);
         errorView.setVisibility(View.VISIBLE);
+    }
+
+    @Override public void showMessage(String msg) {
+        activityUtils.showToast(msg);
     }
 
     //上拉加载视图分析
@@ -194,8 +224,8 @@ public class HotRepoListFragment extends Fragment implements RepoListView {
         footerView.showError();
     }
 
-    @Override public void addLoadData(List<String> list) {
-        data.addAll(list);
+    @Override public void addLoadData(List<Repo> list) {
+        adapter.addAll(list);
         adapter.notifyDataSetChanged();
     }
 }

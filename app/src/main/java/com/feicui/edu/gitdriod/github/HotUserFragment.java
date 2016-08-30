@@ -10,11 +10,14 @@ import android.view.ViewGroup;
 import com.feicui.edu.gitdriod.R;
 
 
+/**
+ * A simple {@link Fragment} subclass.
+ */
 public class HotUserFragment extends Fragment {
 
 
     public HotUserFragment() {
-
+        // Required empty public constructor
     }
 
 

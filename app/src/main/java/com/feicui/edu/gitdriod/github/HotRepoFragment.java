@@ -12,10 +12,16 @@ import android.view.ViewGroup;
 import com.feicui.edu.gitdriod.R;
 
 
+/**
+ * A simple {@link Fragment} subclass.
+ */
 public class HotRepoFragment extends Fragment {
 
 
-
+    /**
+     * 放置的ViewPager主要是为了实现我们Java、go、HTml....展示
+     * java---HotRepoListFragment
+     */
     private ViewPager viewPager;
     private TabLayout tabLayout;
 
@@ -37,7 +43,7 @@ public class HotRepoFragment extends Fragment {
         viewPager = (ViewPager) view.findViewById(R.id.viewPager);
         tabLayout = (TabLayout) view.findViewById(R.id.tabLayout);
 
-        adapter = new HotRepoAdapter(getChildFragmentManager());
+        adapter = new HotRepoAdapter(getChildFragmentManager(),getContext());
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
 

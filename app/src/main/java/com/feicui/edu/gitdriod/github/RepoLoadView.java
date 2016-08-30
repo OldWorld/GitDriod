@@ -1,5 +1,7 @@
 package com.feicui.edu.gitdriod.github;
 
+import com.feicui.edu.gitdriod.github.model.Repo;
+
 import java.util.List;
 
 
@@ -19,7 +21,6 @@ public interface RepoLoadView {
 
 //    加载失败视图
     void showLoadError(String msg);
-
-//    加载完成，拿到数据进行视图更新
-    void addLoadData(List<String> list);
+    //    加载完成，拿到数据进行视图更新
+    void addLoadData(List<Repo> list);
 }

@@ -4,11 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-/**
- * 个人用户信息响应结果
- * 作者：yuanchao on 2016/7/29 0029 15:48
- * 邮箱：yuanchao@feicuiedu.com
- */
+
 public class User implements Serializable{
 
     // 登录所用的账号

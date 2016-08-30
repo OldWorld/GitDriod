@@ -1,5 +1,7 @@
 package com.feicui.edu.gitdriod.github;
 
+import com.feicui.edu.gitdriod.github.model.Repo;
+
 import java.util.List;
 
 
@@ -14,7 +16,7 @@ public interface RepoPtrView {
      */
 
 //    拿到刷新得到数据
-    void refreshData(List<String> list);
+    void refreshData(List<Repo> list);
 
 //    显示刷新的视图
     void showContentView();
@@ -27,4 +29,5 @@ public interface RepoPtrView {
 
 //    加载错误
     void showErrorView(String errormsg);
+    void showMessage(String msg);
 }

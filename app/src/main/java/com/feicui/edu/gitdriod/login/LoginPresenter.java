@@ -1,11 +1,5 @@
 package com.feicui.edu.gitdriod.login;
 
-/*import com.fuicui.gitdroid.gitdroid.login.model.AccessToken;
-import com.fuicui.gitdroid.gitdroid.login.model.User;
-import com.fuicui.gitdroid.gitdroid.login.model.UserRepo;
-import com.fuicui.gitdroid.gitdroid.network.GithubApi;
-import com.fuicui.gitdroid.gitdroid.network.GithubClient;*/
-
 import com.feicui.edu.gitdriod.network.GithubApi;
 import com.feicui.edu.gitdriod.network.GithubClient;
 
@@ -13,10 +7,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-/**
- * 作者：yuanchao on 2016/8/26 0026 14:02
- * 邮箱：yuanchao@feicuiedu.com
- */
+
 public class LoginPresenter {
 
     private Call<AccessToken> tokenCall;
@@ -39,7 +30,7 @@ public class LoginPresenter {
             tokenCall.cancel();
         }
         //获取Token
-        tokenCall = GithubClient.getInstence().getOAuthToken(
+        tokenCall = GithubClient.getInstance().getOAuthToken(
                 GithubApi.CLIENT_ID,
                 GithubApi.CLIENT_SECRET,
                 code);
@@ -59,7 +50,7 @@ public class LoginPresenter {
             if (userCall!=null){
                 userCall.cancel();
             }
-            userCall = GithubClient.getInstence().getUser();
+            userCall = GithubClient.getInstance().getUser();
             userCall.enqueue(userCallback);
         }
 

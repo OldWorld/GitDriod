@@ -1,8 +1,7 @@
 package com.feicui.edu.gitdriod.login;
 
 /**
- * 作者：yuanchao on 2016/8/26 0026 16:38
- * 邮箱：yuanchao@feicuiedu.com
+ * Created by Administrator on 16-8-29.
  */
 public interface LoginView {
 

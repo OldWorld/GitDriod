@@ -1,9 +1,6 @@
 package com.feicui.edu.gitdriod.login;
 
-/**
- * 作者：yuanchao on 2016/8/26 0026 15:17
- * 邮箱：yuanchao@feicuiedu.com
- */
+
 
 //主要是为了暂时存储我们的Token值以及请求得到的个人信息
 public class UserRepo {

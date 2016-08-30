@@ -6,10 +6,7 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
-/**
- * 作者：yuanchao on 2016/8/26 0026 17:17
- * 邮箱：yuanchao@feicuiedu.com
- */
+
 public class GitDroidApplication extends Application {
 
     @Override public void onCreate() {

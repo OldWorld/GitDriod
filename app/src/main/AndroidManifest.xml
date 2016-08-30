@@ -22,6 +22,8 @@
         </activity>
         <activity android:name=".login.LoginActivity">
         </activity>
+        <activity android:name=".github.repoinfo.RepoInfoActivity">
+        </activity>
     </application>
 
 </manifest>

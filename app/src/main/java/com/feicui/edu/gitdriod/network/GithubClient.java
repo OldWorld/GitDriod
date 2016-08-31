@@ -1,5 +1,6 @@
 package com.feicui.edu.gitdriod.network;
 
+import com.feicui.edu.gitdriod.github.hotuser.HotUserResult;
 import com.feicui.edu.gitdriod.github.repoinfo.RepoContentResult;
 import com.feicui.edu.gitdriod.login.AccessToken;
 import com.feicui.edu.gitdriod.github.model.RepoResult;
@@ -64,5 +65,10 @@ public class GithubClient implements GithubApi{
 
     @Override public Call<ResponseBody> markDown(@Body RequestBody body) {
         return githubApi.markDown(body);
+    }
+
+    @Override
+    public Call<HotUserResult> searchUsers(@Query("q") String query, @Query("page") int pageId) {
+        return githubApi.searchUsers(query, pageId);
     }
 }

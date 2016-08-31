@@ -18,7 +18,7 @@ import android.widget.ImageView;
 
 import com.feicui.edu.gitdriod.commons.ActivityUtils;
 import com.feicui.edu.gitdriod.github.HotRepoFragment;
-import com.feicui.edu.gitdriod.github.HotUserFragment;
+import com.feicui.edu.gitdriod.github.hotuser.HotUserFragment;
 import com.feicui.edu.gitdriod.login.LoginActivity;
 import com.feicui.edu.gitdriod.login.UserRepo;
 import com.nostra13.universalimageloader.core.ImageLoader;

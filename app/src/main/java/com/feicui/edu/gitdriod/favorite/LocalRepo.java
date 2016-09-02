@@ -123,6 +123,13 @@ public class LocalRepo {
     }
 
     private static List<LocalRepo> localRepoList;
+    public RepoGroup getRepoGroup() {
+        return repoGroup;
+    }
+
+    public void setRepoGroup(RepoGroup repoGroup) {
+        this.repoGroup = repoGroup;
+    }
 
     public static List<LocalRepo> getDefaultLocalRepo(Context context){
         if (localRepoList!=null){

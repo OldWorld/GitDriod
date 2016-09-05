@@ -18,6 +18,7 @@ import android.widget.ImageView;
 
 import com.feicui.edu.gitdriod.commons.ActivityUtils;
 import com.feicui.edu.gitdriod.favorite.FavoriteFragment;
+import com.feicui.edu.gitdriod.gank.GankFragment;
 import com.feicui.edu.gitdriod.github.HotRepoFragment;
 import com.feicui.edu.gitdriod.github.hotuser.HotUserFragment;
 import com.feicui.edu.gitdriod.login.LoginActivity;
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private HotRepoFragment hotRepoFragment;
     private HotUserFragment hotUserFragment;
     private FavoriteFragment favoriteFragment;
+    private GankFragment gankFragment;
     private Button btnLogin;
     private ImageView ivIcon;
     private ActivityUtils activityUtils;
@@ -136,6 +138,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             // 每日干货
             case R.id.tips_daily:
                 //TODO 每日干货
+                if (gankFragment==null){
+                    gankFragment = new GankFragment();
+                }
+                if (!gankFragment.isAdded()){
+                    replaceFragment(gankFragment);
+                }
                 break;
         }
         // 关闭drawerLayout

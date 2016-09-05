@@ -1,12 +1,12 @@
-package com.feicui.edu.gitdriod.gank.model.network;
+package com.feicui.edu.gitdriod.gank.network;
 
 /**
  * Created by 123 on 2016/9/1.
  */
 
-
 import com.feicui.edu.gitdriod.commons.LoggingInterceptor;
 import com.feicui.edu.gitdriod.gank.model.GankResult;
+
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -51,7 +51,7 @@ public class GankClient implements GankApi{
     }
 
     @Override
-    public Call<GankResult> getDailyData(@Path("yaer") int year, @Path("month") int month, @Path("day") int day) {
+    public Call<GankResult> getDailyData(@Path("year") int year, @Path("month") int month, @Path("day") int day) {
         return gankApi.getDailyData(year, month, day);
     }
 }

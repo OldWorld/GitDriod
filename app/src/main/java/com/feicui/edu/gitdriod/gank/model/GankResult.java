@@ -13,6 +13,7 @@ public class GankResult {
 
     private boolean error;
 
+    @SerializedName("results")
     private Result result;
 
     public List<String> getCategory() {
